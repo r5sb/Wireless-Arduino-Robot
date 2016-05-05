@@ -1,0 +1,102 @@
+/******************************************************************
+*******************************************************************
+********************Written by Sidharth Makhija in 2013************
+********************This code is released AS-IS and you are********
+********************free to modify it as per your requirement******
+*******************************************************************
+*******************************************************************
+ */
+// TRANSMITTER CODE
+
+#include <VirtualWire.h>
+
+int forward = 12;
+int backward = 11;
+int rightTurn = 10;
+int leftTurn = 9;
+int stopMotor = 8;
+
+
+
+int remotePins[]= {8,9,10,11,12};
+
+void setup()
+{
+    Serial.begin(9600);	  // Debugging only
+    Serial.println("setup");
+
+    // Initialise the IO and ISR
+    vw_set_ptt_inverted(true); // Required for DR3100
+    vw_setup(2000);	 // Bits per sec
+        vw_set_tx_pin(3); 
+        
+       /*pinMode(8, INPUT);
+        pinMode(9, INPUT);
+        pinMode(10, INPUT);
+        pinMode(11, INPUT);
+        pinMode(12, INPUT);
+
+digitalWrite(8, HIGH);
+digitalWrite(9, HIGH);
+digitalWrite(10, HIGH);
+digitalWrite(11, HIGH);
+digitalWrite(12, HIGH);*/
+
+    for(int i = 0; i<6 ; i++)
+    {
+      pinMode(remotePins[i], INPUT);
+      digitalWrite(remotePins[i],HIGH);
+    }
+
+
+
+}
+
+void loop()
+{
+  char *msg2;
+  
+  if(digitalRead(forward) == LOW)
+  {
+    char *msg2 = "1";
+      digitalWrite(13, true); // Flash a light to show transmitting
+    vw_send((uint8_t *)msg2, strlen(msg2));
+    vw_wait_tx(); // Wait until the whole message is gone
+    digitalWrite(13, false);
+  }
+  if(digitalRead(backward) == LOW)
+  {
+    char *msg2 = "2";
+      digitalWrite(13, true); // Flash a light to show transmitting
+    vw_send((uint8_t *)msg2, strlen(msg2));
+    vw_wait_tx(); // Wait until the whole message is gone
+    digitalWrite(13, false);
+  }
+  if(digitalRead(leftTurn) == LOW)
+  {
+    char *msg2 = "3";
+      digitalWrite(13, true); // Flash a light to show transmitting
+    vw_send((uint8_t *)msg2, strlen(msg2));
+    vw_wait_tx(); // Wait until the whole message is gone
+    digitalWrite(13, false);
+  }
+  if(digitalRead(rightTurn) == LOW)
+  {
+    char *msg2 = "4";
+      digitalWrite(13, true); // Flash a light to show transmitting
+    vw_send((uint8_t *)msg2, strlen(msg2));
+    vw_wait_tx(); // Wait until the whole message is gone
+    digitalWrite(13, false);
+  }
+  if(digitalRead(stopMotor)==LOW)
+  {
+   char *msg2 = "5";
+      digitalWrite(13, true); // Flash a light to show transmitting
+    vw_send((uint8_t *)msg2, strlen(msg2));
+    vw_wait_tx(); // Wait until the whole message is gone
+    digitalWrite(13, false);
+  } 
+  }
+  
+ // END TRANSMITTER CODE */ 
+  
